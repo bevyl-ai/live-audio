@@ -1,11 +1,19 @@
-export {
+import {
   buildAssemblyAiWebSocketUrl,
   fetchAssemblyAiTemporaryToken,
   parseAssemblyAiRealtimeMessage,
-  type AssemblyAiRealtimeMessage,
 } from './assemblyai-message';
-export {
+import {
   AssemblyAiLiveAudioSnapshotSchema,
   createAssemblyAiLiveAudioPlugin,
-  type AssemblyAiLiveAudioPluginOptions,
 } from './assemblyai-live-audio-plugin';
+
+export type { AssemblyAiRealtimeMessage } from './assemblyai-message';
+export type { AssemblyAiLiveAudioPluginOptions } from './assemblyai-live-audio-plugin';
+export {
+  AssemblyAiLiveAudioSnapshotSchema,
+  buildAssemblyAiWebSocketUrl,
+  createAssemblyAiLiveAudioPlugin,
+  fetchAssemblyAiTemporaryToken,
+  parseAssemblyAiRealtimeMessage,
+};

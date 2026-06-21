@@ -34,5 +34,9 @@ workflow manually.
 
 ```bash
 cd packages/live-audio
-npm publish --access public --dry-run
+npm pack --dry-run
 ```
+
+Run `bun run pack:smoke` from the repository root before publishing. It packs
+the package, installs the tarball into a fresh consumer project, and imports the
+public root and subpaths.

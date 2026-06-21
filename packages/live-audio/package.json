@@ -1,8 +1,9 @@
 {
   "name": "@bevyl-ai/live-audio",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Realtime browser audio recording, waveform capture, transcription, and upload lifecycle hooks.",
   "license": "MIT",
+  "type": "module",
   "author": {
     "name": "Bevyl",
     "url": "https://bevyl.ai"
@@ -17,16 +18,22 @@
     "url": "https://github.com/bevyl-ai/live-audio/issues"
   },
   "sideEffects": false,
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "files": [
-    "src",
+    "dist",
     "LICENSE",
     "README.md",
     "package.json"
   ],
   "scripts": {
     "clean": "git clean -xdf .turbo node_modules dist",
+    "clean:dist": "rm -rf dist",
+    "build": "bun run clean:dist && tsc -p tsconfig.build.json && node ../../scripts/rewrite-dist-imports.mjs",
     "format": "prettier --check \"**/*.{ts,tsx,md,json}\"",
     "lint": "tsc --noEmit",
+    "pack:smoke": "node ../../scripts/smoke-packed-package.mjs",
+    "prepack": "bun run build",
     "test": "bun test",
     "test:unit": "bun test --only-failures",
     "test:unit:watch": "bun test --watch",
@@ -34,12 +41,19 @@
   },
   "exports": {
     ".": {
-      "types": "./src/index.ts",
-      "default": "./src/index.ts"
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./audio-waveform": {
+      "types": "./dist/audio-waveform/index.d.ts",
+      "import": "./dist/audio-waveform/index.js",
+      "default": "./dist/audio-waveform/index.js"
     },
     "./plugins/assemblyai": {
-      "types": "./src/plugins/assemblyai/index.ts",
-      "default": "./src/plugins/assemblyai/index.ts"
+      "types": "./dist/plugins/assemblyai/index.d.ts",
+      "import": "./dist/plugins/assemblyai/index.js",
+      "default": "./dist/plugins/assemblyai/index.js"
     }
   },
   "dependencies": {
