@@ -1,0 +1,64 @@
+{
+  "name": "@bevyl-ai/live-audio",
+  "version": "0.1.0",
+  "description": "Realtime browser audio recording, waveform capture, transcription, and upload lifecycle hooks.",
+  "license": "MIT",
+  "author": {
+    "name": "Bevyl",
+    "url": "https://bevyl.ai"
+  },
+  "homepage": "https://github.com/bevyl-ai/live-audio#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/bevyl-ai/live-audio.git",
+    "directory": "packages/live-audio"
+  },
+  "bugs": {
+    "url": "https://github.com/bevyl-ai/live-audio/issues"
+  },
+  "sideEffects": false,
+  "files": [
+    "src",
+    "LICENSE",
+    "README.md",
+    "package.json"
+  ],
+  "scripts": {
+    "clean": "git clean -xdf .turbo node_modules dist",
+    "format": "prettier --check \"**/*.{ts,tsx,md,json}\"",
+    "lint": "tsc --noEmit",
+    "test": "bun test",
+    "test:unit": "bun test --only-failures",
+    "test:unit:watch": "bun test --watch",
+    "typecheck": "tsc --noEmit"
+  },
+  "exports": {
+    ".": {
+      "types": "./src/index.ts",
+      "default": "./src/index.ts"
+    },
+    "./plugins/assemblyai": {
+      "types": "./src/plugins/assemblyai/index.ts",
+      "default": "./src/plugins/assemblyai/index.ts"
+    }
+  },
+  "dependencies": {
+    "mediabunny": "1.46.0",
+    "zod": "3.25.76"
+  },
+  "peerDependencies": {
+    "react": ">=18.2.0 <20"
+  },
+  "devDependencies": {
+    "@testing-library/react": "^16.3.0",
+    "@types/react": "19.2.14",
+    "happy-dom": "^20.0.11",
+    "prettier": "^3.8.3",
+    "react": "19.2.5",
+    "typescript": "^6.0.3",
+    "vitest": "^4.1.5"
+  },
+  "publishConfig": {
+    "access": "public"
+  }
+}
