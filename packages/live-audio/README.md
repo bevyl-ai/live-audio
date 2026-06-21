@@ -88,7 +88,7 @@ the recorder.
 import {
   AudioWaveformAccumulator,
   cropAudioWaveform,
-} from '@bevyl-ai/live-audio';
+} from '@bevyl-ai/live-audio/audio-waveform';
 
 const accumulator = new AudioWaveformAccumulator(48_000);
 
@@ -123,6 +123,7 @@ code.
 
 - `src/session` contains `useLiveAudioRecordingSession` and
   `useLiveAudioRecorder`.
+- `src/audio-waveform` contains the dependency-free waveform JSON primitives.
 - `src/hooks` contains lower-level capture, transcription, upload, and waveform
   hooks.
 - `src/plugins/contracts.ts` contains the `LiveAudioPlugin` lifecycle port.
