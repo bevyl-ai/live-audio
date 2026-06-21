@@ -27,6 +27,10 @@ bun run typecheck
 bun test
 ```
 
+## Releasing
+
+See [RELEASING.md](./RELEASING.md).
+
 ## Security
 
 See [SECURITY.md](./SECURITY.md). Do not put provider API keys in browser code;
