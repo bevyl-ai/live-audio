@@ -54,10 +54,6 @@ if (typeof waveform.AudioWaveformAccumulator !== 'function') {
   throw new Error('Waveform subpath is missing AudioWaveformAccumulator.');
 }
 
-const assemblyAi = await import('@bevyl-ai/live-audio/plugins/assemblyai');
-if (typeof assemblyAi.createAssemblyAiLiveAudioPlugin !== 'function') {
-  throw new Error('AssemblyAI subpath is missing createAssemblyAiLiveAudioPlugin.');
-}
 `.trimStart(),
   );
   await writeFile(
@@ -68,17 +64,12 @@ import {
   AudioWaveformAccumulator,
   type AudioWaveformJson,
 } from '@bevyl-ai/live-audio/audio-waveform';
-import { createAssemblyAiLiveAudioPlugin } from '@bevyl-ai/live-audio/plugins/assemblyai';
 
 const waveform: AudioWaveformJson = new AudioWaveformAccumulator(
   48_000,
 ).toWaveformJson();
-const plugin = createAssemblyAiLiveAudioPlugin({
-  getToken: async () => 'test-token',
-});
 
 void waveform;
-void plugin;
 void useLiveAudioRecordingSession;
 `.trimStart(),
   );

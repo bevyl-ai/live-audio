@@ -98,27 +98,6 @@ const waveform = accumulator.toWaveformJson();
 const firstSecond = cropAudioWaveform(waveform, 0, 1);
 ```
 
-## AssemblyAI
-
-The AssemblyAI realtime plugin is exported as a subpath so the root package
-stays provider-agnostic.
-
-```ts
-import { createAssemblyAiLiveAudioPlugin } from '@bevyl-ai/live-audio/plugins/assemblyai';
-
-const assemblyAi = createAssemblyAiLiveAudioPlugin({
-  async getToken() {
-    const response = await fetch('/api/assemblyai-token');
-    const body = await response.json();
-
-    return body.token;
-  },
-});
-```
-
-Mint provider tokens on your own server. Do not put provider API keys in browser
-code.
-
 ## Package Shape
 
 - `src/session` contains `useLiveAudioRecordingSession` and
@@ -127,7 +106,6 @@ code.
 - `src/hooks` contains lower-level capture, transcription, upload, and waveform
   hooks.
 - `src/plugins/contracts.ts` contains the `LiveAudioPlugin` lifecycle port.
-- `src/plugins/assemblyai` contains the optional AssemblyAI provider plugin.
 
 ## Development
 

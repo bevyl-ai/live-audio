@@ -1,6 +1,6 @@
 {
   "name": "@bevyl-ai/live-audio",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "Realtime browser audio recording, waveform capture, transcription, and upload lifecycle hooks.",
   "license": "MIT",
   "type": "module",
@@ -49,11 +49,6 @@
       "types": "./dist/audio-waveform/index.d.ts",
       "import": "./dist/audio-waveform/index.js",
       "default": "./dist/audio-waveform/index.js"
-    },
-    "./plugins/assemblyai": {
-      "types": "./dist/plugins/assemblyai/index.d.ts",
-      "import": "./dist/plugins/assemblyai/index.js",
-      "default": "./dist/plugins/assemblyai/index.js"
     }
   },
   "dependencies": {

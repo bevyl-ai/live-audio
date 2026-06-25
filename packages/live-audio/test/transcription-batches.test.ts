@@ -173,7 +173,7 @@ describe('recordLiveAudioTranscriptionMessage', () => {
     ]);
   });
 
-  it('does not read AssemblyAI field names from generic transcription messages', () => {
+  it('uses provider-normalized source batch keys from transcription messages', () => {
     const initialState = createInitialLiveAudioTranscriptionBatchState();
     const update = recordLiveAudioTranscriptionMessage({
       message: {
