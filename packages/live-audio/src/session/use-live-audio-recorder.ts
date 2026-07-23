@@ -283,7 +283,6 @@ export function useLiveAudioRecorder({
       try {
         const realtimeUploadStart = realtimeUpload.start();
 
-        hasStartedCaptureRef.current = true;
         void transcription.start({
           onBatchProgress: realtimeUpload.uploadBatchWindow,
           onBatchComplete(batch) {
@@ -295,18 +294,19 @@ export function useLiveAudioRecorder({
           onPcmSamples: appendVisualWaveformSamples,
           stream,
         });
-        pcmCapture.start({
+        const pcmCaptureStart = pcmCapture.start({
           onComplete: handleCaptureComplete,
           stream,
         });
 
-        await realtimeUploadStart;
+        await Promise.all([pcmCaptureStart, realtimeUploadStart]);
 
         if (startAttemptRef.current !== startAttempt) {
           realtimeUpload.stop();
           return false;
         }
 
+        hasStartedCaptureRef.current = true;
         return true;
       } catch (error) {
         if (startAttemptRef.current === startAttempt) {
@@ -338,6 +338,9 @@ export function useLiveAudioRecorder({
     if (!hasStartedCaptureRef.current) {
       startAttemptRef.current += 1;
       realtimeUpload.stop();
+      void transcription.stop({ mode: 'cancel' });
+      stopVisualWaveform();
+      pcmCapture.stop();
       pcmCapture.markStopped();
       return;
     }
