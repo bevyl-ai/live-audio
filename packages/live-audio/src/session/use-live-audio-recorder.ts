@@ -302,7 +302,8 @@ export function useLiveAudioRecorder({
         await Promise.all([pcmCaptureStart, realtimeUploadStart]);
 
         if (startAttemptRef.current !== startAttempt) {
-          realtimeUpload.stop();
+          // The reset/stop that bumped the attempt already tore down the
+          // shared uploader; stopping it here would kill a replacement attempt.
           return false;
         }
 
