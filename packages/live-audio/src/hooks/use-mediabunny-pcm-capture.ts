@@ -8,11 +8,10 @@ import {
 } from '../audio-waveform';
 
 import type { LiveAudioCaptureCompleteEvent } from '../capture/complete-event';
-import {
-  type LiveAudioCaptureProgressEvent,
-  type MediabunnyPcmCapture,
-  type MediabunnyPcmCaptureStatus,
-  startMediabunnyPcmCapture,
+import type {
+  LiveAudioCaptureProgressEvent,
+  MediabunnyPcmCapture,
+  MediabunnyPcmCaptureStatus,
 } from '../capture/mediabunny-pcm-capture';
 import {
   type PcmCaptureStats,
@@ -82,11 +81,15 @@ export function useMediabunnyPcmCapture(
     const activeCapture = captureRef.current;
     captureRef.current = null;
 
+    if (!activeCapture) {
+      startAttemptRef.current += 1;
+    }
+
     activeCapture?.stop();
   }, []);
 
   const start = useCallback(
-    ({
+    async ({
       onComplete,
       stream,
     }: {
@@ -115,6 +118,12 @@ export function useMediabunnyPcmCapture(
             },
           }
         : {};
+
+      const { startMediabunnyPcmCapture } =
+        await import('../capture/mediabunny-pcm-capture');
+      if (startAttemptRef.current !== startAttempt) {
+        return;
+      }
 
       const capture = startMediabunnyPcmCapture(stream, {
         mono: true,
