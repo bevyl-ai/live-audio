@@ -48,6 +48,7 @@ export function useLiveAudioTranscription({
   const batchCallbacksRef = useRef<LiveAudioTranscriptionBatchCallbacks>({});
   const sessionsRef = useRef<LiveAudioPluginSession[]>([]);
   const startAttemptRef = useRef(0);
+  const stoppingAttemptRef = useRef<number | null>(null);
   const batchStateRef = useRef<LiveAudioTranscriptionBatchState>(
     createInitialLiveAudioTranscriptionBatchState(),
   );
@@ -99,7 +100,11 @@ export function useLiveAudioTranscription({
                 );
               },
               emitError(nextErrorMessage) {
-                if (startAttemptRef.current !== attempt) {
+                // Closing a socket on stop often fires a late error event.
+                if (
+                  startAttemptRef.current !== attempt ||
+                  stoppingAttemptRef.current === attempt
+                ) {
                   return;
                 }
 
@@ -192,6 +197,7 @@ export function useLiveAudioTranscription({
     mode = 'cancel',
   }: LiveAudioTranscriptionStopOptions = {}) {
     const sessionAttempt = startAttemptRef.current;
+    stoppingAttemptRef.current = sessionAttempt;
 
     if (mode === 'cancel') {
       completeActiveBatch();
